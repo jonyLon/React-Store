@@ -27,6 +27,17 @@
 .App-link {
   color: #61dafb;
 }
+form,h2,table{
+  margin: 30px;
+}
+form>input{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+th,td{
+  padding: 20px;
+}
+
 
 @keyframes App-logo-spin {
   from {
