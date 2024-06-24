@@ -1,81 +1,55 @@
 // import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
+import MainHeader from "./components/containers/header";
 
 function App() {
 
-  // маємо таблицю із користувачами
-  // має інпути куди вносимо інформацію
-  // при натиску кнопки додати користувача в таблицю. Використать useState
-
-  let count = 5;
-  // const [count, setCount] = useState(5);
-  const [formData, setFormData] = useState({
-    name: '',
-    surname: ''
-  });
-  const [users, setUsers] = useState([]);
-  // const handleClick = () => {
-  //   console.log("Нажали кнопку", count);
-  //   setCount(count + 1);
-  //   //count++
-  // }
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    })
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setUsers([...users, formData])
-    setFormData({
-      name: "",
-      surname: ""
-    })
-  }
-
   return (
     <>
-      <h1>Привіт React {count}</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Ім'я</label><br></br>
-        <input
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <br />
-        <label>Прізвище</label><br></br >
-        <input
-          name="surname"
-          value={formData.surname}
-          onChange={handleChange}
-        />
-        <br />
-        <button type="submit">Додати користувача</button>
-      </form>
+      <MainHeader/>
+      <div className="container">
+        <h1 className={"text-center"}>Користувачі</h1>
 
-      <h2>Користувачі</h2>
-      <table>
-        <thead>
+        <table className="table">
+          <thead>
           <tr>
-            <th>#</th>
-            <th>Ім'я</th>
-            <th>Прізвище</th>
+            <th scope="col">Фото</th>
+            <th scope="col">ПІБ</th>
+            <th scope="col">Телефон</th>
+            <th scope="col">Пошта</th>
           </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{user.name}</td>
-              <td>{user.surname}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">
+              <div className={"d-flex justify-content-center"}>
+                <img
+                    src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3tNB5rc_qoyctOaIfedxwg0_psN3pSHJQwQ&s"}
+                    alt={"Користувач"}
+                    style={{maxWidth: "75px", maxHeight: "50px",}}/>
+              </div>
+            </th>
+            <td>Марко Іван Васильович</td>
+            <td>096 21 25 145</td>
+            <td>ivan@gmail.com</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <div className={"d-flex justify-content-center"}>
+                <img
+                    src={"https://people.com/thmb/Nm5TRrGO050Au3O7PSiHdt424vk=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(576x0:578x2)/Dog-Bitsy-050224-1-0717aedc49ba405aa2a1a8315cb57c51.jpg"}
+                    alt={"Користувач"}
+                    style={{maxWidth: "75px", maxHeight: "50px",}}/>
+              </div>
+            </th>
+            <td>Інь Янь</td>
+            <td>098 21 70 127</td>
+            <td>inya@gmail.com</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }
