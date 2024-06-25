@@ -1,3 +1,44 @@
+
 body{
   padding-top: 3rem;
+}
+.icon-bg{
+  padding: 5px;
+}
+.accord:hover .icon-bg{
+  background-color: #ff822e;
+  border-radius: 50%;
+}
+.accord{
+  padding: 10px 20px;
+  background-color: white;
+  width: 700px;
+}
+.plus-icon{
+  color: lightgrey;
+  font-size: 1.5em;
+}
+.plus-icon-active{
+  color: lightgrey;
+  font-size: 1.5em;
+  transform: rotate(45deg);
+}
+
+
+.cross-icon{
+  color: lightgrey;
+  font-size: 1.5em;
+}
+
+.accordion-cont{
+  background-color: #f0f0f0;
+  padding:0 30px;
+}
+.accordion-content{
+  width: 700px;
+  padding: 10px 20px;
+  background-color: white;
+}
+.wrapper{
+  border: #f0f0f0 1px solid;
 }
