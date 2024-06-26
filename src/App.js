@@ -4,17 +4,25 @@ import MainHeader from "./components/containers/header";
 import HomePage from "./components/home";
 import {useState} from "react";
 import Accordion from "./components/accordion";
+import {Route, Routes} from "react-router-dom";
+import Layout from "./components/containers";
+import RegisterPage from "./components/auth/register";
+import NotFoundPage from "./components/pages/404";
+
+
+
 
 function App() {
-
-
-
   return (
-    <>
-        <MainHeader/>
-        <HomePage/>
-        <Accordion/>
-    </>
+      <>
+          <Routes>
+              <Route path="/" element={<Layout/>}>
+                  <Route index element={<HomePage/>}/>
+                  <Route path={"register"} index element={<RegisterPage/>}/>
+                  <Route path={"*"} element={<NotFoundPage/>}/>
+              </Route>
+          </Routes>
+      </>
   );
 }
 
