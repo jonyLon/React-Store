@@ -1,8 +1,8 @@
-const TextArea = ({label,field, placeholder}) => {
+const TextArea = ({label,field, placeholder, onChange}) => {
     return(
         <>
             <div className="form-floating">
-                <textarea className="form-control" placeholder={placeholder} id={field} name={field}></textarea>
+                <textarea className="form-control" placeholder={placeholder} id={field} name={field} onChange={onChange}></textarea>
                 <label htmlFor={field}>{label}</label>
             </div>
         </>

@@ -1,16 +1,5 @@
-import {useState} from "react";
-import noFoto from "../../../assets/images/no-foto.png";
 
-const ImageInput = ({field}) => {
-
-    const [imageFile, setImageFile] = useState(noFoto)
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setImageFile(URL.createObjectURL(file));
-        }
-    }
+const ImageInput = ({field, onChange, imageFile}) => {
 
     return(
         <>
@@ -21,7 +10,7 @@ const ImageInput = ({field}) => {
                     </label>
                 </div>
                 <div className="mb-3 col-md-9">
-                    <input onChange={handleImageChange} type="file" className="form-control" id={field} name={field} accept="image/*" aria-describedby="emailHelp"
+                    <input onChange={onChange} type="file" className="form-control" id={field} name={field} accept="image/*" aria-describedby="emailHelp"
                            required/>
                 </div>
             </div>
