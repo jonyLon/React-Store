@@ -42,3 +42,14 @@ body{
 .wrapper{
   border: #f0f0f0 1px solid;
 }
+.input-error {
+  border: 2px solid red;
+}
+
+.input-success {
+  border: 2px solid green;
+}
+
+.error-message {
+  color: red;
+}
