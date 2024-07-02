@@ -42,14 +42,22 @@ body{
 .wrapper{
   border: #f0f0f0 1px solid;
 }
-.input-error {
-  border: 2px solid red;
+
+.image-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.input-success {
-  border: 2px solid green;
+.add-img-btn{
+  margin-top: 20px;
+  width: 120px;
+  height: 100px;
+  border: 2px solid #256799;
+  border-radius: 5px;
+  border-style: dashed;
 }
-
-.error-message {
-  color: red;
+.add-img-btn:hover{
+  border-style: solid;
 }
+/*style={{marginTop: '20px', width: '120px', height: '100px', border: "2px solid #256799", borderRadius: "5px", borderStyle: "dashed"}}*/

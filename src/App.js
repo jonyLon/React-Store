@@ -8,7 +8,7 @@ import {Route, Routes} from "react-router-dom";
 import Layout from "./components/containers";
 import RegisterPage from "./components/auth/register";
 import NotFoundPage from "./components/pages/404";
-
+import AddPhotosPage from "./components/pages/add_photos";
 
 
 
@@ -19,6 +19,7 @@ function App() {
               <Route path="/" element={<Layout/>}>
                   <Route index element={<HomePage/>}/>
                   <Route path={"register"} index element={<RegisterPage/>}/>
+                  <Route path={"add_photos"} index element={<AddPhotosPage/>}/>
                   <Route path={"*"} element={<NotFoundPage/>}/>
               </Route>
           </Routes>
