@@ -1,11 +1,29 @@
-const TextInput = ({label, field, type, value ,onChange, setClass }) => {
-    return(
+import classNames from "classnames";
+
+const TextInput = ({ label, field, type, value, error, onChange }) => {
+    return (
         <>
-            <div className="mt-3">
+            <div className="mb-3">
                 <label htmlFor={field} className="form-label">{label}</label>
-                <input type={type} className={`form-control ${setClass}`} id={field} name={field} aria-describedby="emailHelp" value={value} onChange={onChange}/>
+                <input type={type}
+                       className={classNames("form-control", {
+                           "is-invalid": error
+                       })}
+                       id={field}
+                       name={field}
+                       value={value}
+                       onChange={onChange}
+                       aria-describedby="emailHelp"/>
+                {
+                    error &&
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
+                }
+
             </div>
         </>
     );
 }
+
 export default TextInput;

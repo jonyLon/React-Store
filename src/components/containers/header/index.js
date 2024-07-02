@@ -19,6 +19,9 @@ const MainHeader = () => {
                                     <a className="nav-link" href="#">Link</a>
                                 </li>
                                 <li className="nav-item">
+                                    <Link className="nav-link" to={"/add_photos"}>Link</Link>
+                                </li>
+                                <li className="nav-item">
                                     <a className="nav-link disabled" aria-disabled="true">Disabled</a>
                                 </li>
                             </ul>

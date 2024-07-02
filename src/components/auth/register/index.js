@@ -2,8 +2,8 @@ import TextInput from "../../common/textInput";
 import ImageInput from "../../common/imageInput";
 import TextArea from "../../common/textArea";
 import {useState} from "react";
-import noFoto from "../../../assets/images/no-foto.png";
 import * as Yup from 'yup';
+import {useFormik} from "formik";
 
 const RegisterPage = () => {
 
@@ -14,35 +14,31 @@ const RegisterPage = () => {
         name: Yup.string()
             .min(2, 'Занадто коротко!')
             .max(50, 'Занадто довге!')
-            .required('Обов\'язково'),
+            .required('Вкажіть ім\'я'),
         phone: Yup.string()
             .min(10, 'Занадто коротко!')
             .max(12, 'Занадто довгий!')
             .matches(/^[0-9]+$/, 'Номер телефону не дійсний')
-            .required('Обов\'язково'),
+            .required('Вкажіть телефон'),
         email: Yup.string()
             .email('Невірний формат електронної пошти')
-            .required('Обов\'язково'),
+            .required('Вкажіть електрону пошту'),
         image: Yup.mixed()
-            .required('Обов\'язково')
+            .required('Фото є обов\'язковим')
             .test('fileSize', 'Файл занадто великий', value => value && value.size <= FILE_SIZE)
             .test('fileFormat', 'Непідтримуваний формат', value => value && SUPPORTED_FORMATS.includes(value.type)),
         textArea: Yup.string()
             .min(5, 'Занадто коротко!')
             .max(200, 'Занадто довге!')
-            .required('Обов\'язково'),
+            .required('Вкажіть хобі'),
         password: Yup.string()
             .min(8, 'Пароль має бути не менше 8 символів')
-            .required('Обов\'язково'),
+            .required('Вкажіть пароль'),
         date: Yup.date()
-            .required('Обов\'язково')
+            .required('Вкажіть дату')
     });
 
 
-
-    const [errors, setErrors] = useState({});
-
-    const [imageFile, setImageFile] = useState(noFoto);
     const initValue = {
         name: '',
         phone: '',
@@ -52,50 +48,29 @@ const RegisterPage = () => {
         password: '',
         date: '',
     };
-    const [formData, setFormData] = useState(initValue);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    const handleFormikSubmit = (values) => {
+        console.log('Form data:', values);
+    };
+    const formik = useFormik({
+        initialValues: initValue,
+        onSubmit: handleFormikSubmit,
+        validationSchema: validationSchema
+    });
+    const {values, touched, errors,
+        handleSubmit, handleChange, setFieldValue} = formik;
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData({ ...formData, [e.target.name]: file });
-            setImageFile(URL.createObjectURL(file));
+            setFieldValue(e.target.name, file);
+            // setFormData({ ...formData, [e.target.name]: file });
+            // setImageFile(URL.createObjectURL(file));
         }
         else {
-            setFormData({ ...formData, [e.target.name]: null });
-            alert("Оберіть фото");
-        }
-    }
-
-    const validateForm = async () => {
-        try {
-            await validationSchema.validate(formData, { abortEarly: false });
-            setErrors({});
-            return true;
-        } catch (err) {
-            const newErrors = {};
-            err.inner.forEach((error) => {
-                newErrors[error.path] = error.message;
-            });
-            setErrors(newErrors);
-            return false;
+            setFieldValue(e.target.name, null);
+            // setFormData({ ...formData, [e.target.name]: null });
         }
     };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const isValid = await validateForm();
-        if (isValid) {
-            console.log('Form data:', formData);
-        }
-    };
-
-    const getInputClassName = (fieldName) => {
-        return errors[fieldName] ? 'input-error' : 'input-success';
-    };
-
     return (
         <>
             <h1 className={"text-center"}>Реєстрація</h1>
@@ -104,71 +79,67 @@ const RegisterPage = () => {
                     label="ПIБ"
                     field="name"
                     type="text"
+                    error={errors.name}
                     onChange={handleChange}
-                    value={formData.name}
-                    setClass={getInputClassName('name')}
+                    value={values.name}
                 />
-                {errors.name && <div className="error-message">{errors.name}</div>}
 
                 <TextInput
                     label="Телефон"
                     field="phone"
                     type="text"
+                    error={errors.phone}
                     onChange={handleChange}
-                    value={formData.phone}
-                    setClass={getInputClassName('phone')}
+                    value={values.phone}
                 />
-                {errors.phone && <div className="error-message">{errors.phone}</div>}
 
                 <TextInput
                     label="Електронна пошта"
                     field="email"
                     type="email"
+                    error={errors.email}
                     onChange={handleChange}
-                    value={formData.email}
-                    setClass={getInputClassName('email')}
+                    value={values.email}
                 />
-                {errors.email && <div className="error-message">{errors.email}</div>}
+
 
                 <ImageInput
                     label="Фото"
                     field="image"
                     onChange={handleImageChange}
-                    imageFile={imageFile}
-                    setClass={getInputClassName('image')}
+                    error={errors.image}
+                    value={values.image}
                 />
-                {errors.image && <div className="error-message">{errors.image}</div>}
+
 
                 <TextArea
                     field="textArea"
                     label="Введіть свої хобі.."
                     placeholder="Введіть свої хобі..."
                     onChange={handleChange}
-                    value={formData.textArea}
-                    setClass={getInputClassName('textArea')}
+                    error={errors.textArea}
+                    value={values.textArea}
+
                 />
-                {errors.textArea && <div className="error-message">{errors.textArea}</div>}
+
 
                 <TextInput
                     label="Пароль"
                     field="password"
                     type="password"
+                    error={errors.password}
                     onChange={handleChange}
-                    value={formData.password}
-                    setClass={getInputClassName('password')}
+                    value={values.password}
                 />
-                {errors.password && <div className="error-message">{errors.password}</div>}
 
                 <TextInput
                     label="Дата"
                     field="date"
                     type="date"
+                    error={errors.date}
                     onChange={handleChange}
-                    value={formData.date}
-                    setClass={getInputClassName('date')}
+                    value={values.date}
                 />
-                {errors.date && <div className="error-message">{errors.date}</div>}
-
                 <button type="submit" className="btn btn-primary">Peєструватися</button>
             </form>
         </>
