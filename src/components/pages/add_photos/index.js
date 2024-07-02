@@ -38,7 +38,7 @@ const AddPhotosPage = () => {
                             className="image-container"
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            style={{display: 'flex', gap: '10px', marginTop: '20px'}}
+                            style={{display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '20px'}}
                         >
                             {images.map((image, index) => (
                                 <Draggable key={image} draggableId={image} index={index}>
@@ -50,7 +50,6 @@ const AddPhotosPage = () => {
                                             style={{
                                                 ...provided.draggableProps.style,
                                                 display: 'flex',
-                                                flexWrap: 'wrap',
                                                 gap: '10px',
                                                 marginTop: '20px',
                                             }}
@@ -65,6 +64,7 @@ const AddPhotosPage = () => {
                                 </Draggable>
 
                             ))}
+                            {provided.placeholder}
                             <div className={"d-flex flex-column align-items-center justify-content-center add-img-btn"} onClick={() => document.getElementById('file-input').click()}>
                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +76,6 @@ const AddPhotosPage = () => {
                                 </svg>
                                 <p style={{color: "#256799"}}>Select Images</p>
                             </div>
-                            {provided.placeholder}
                         </div>
                     )}
                 </Droppable>
