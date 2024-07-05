@@ -9,6 +9,7 @@ import Layout from "./components/containers";
 import RegisterPage from "./components/auth/register";
 import NotFoundPage from "./components/pages/404";
 import AddPhotosPage from "./components/pages/add_photos";
+import CreatePizzaPage from "./components/pizza/create";
 
 
 
@@ -20,6 +21,9 @@ function App() {
                   <Route index element={<HomePage/>}/>
                   <Route path={"register"} index element={<RegisterPage/>}/>
                   <Route path={"add_photos"} index element={<AddPhotosPage/>}/>
+                  <Route path={"pizza"}>
+                    <Route path={"create"} index element={<CreatePizzaPage/>}/>
+                  </Route>
                   <Route path={"*"} element={<NotFoundPage/>}/>
               </Route>
           </Routes>
