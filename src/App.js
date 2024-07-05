@@ -10,12 +10,23 @@ import RegisterPage from "./components/auth/register";
 import NotFoundPage from "./components/pages/404";
 import AddPhotosPage from "./components/pages/add_photos";
 import CreatePizzaPage from "./components/pizza/create";
-
+import {AuthContext, initState} from "./authContext";
 
 
 function App() {
-  return (
+
+    const [auth, setAuth] = useState({
+        ...initState,
+        login: (user) => {
+            setAuth({...auth, isAuth: true, user});
+        },
+        logout: () => {
+            setAuth({...auth, isAuth: false, user: null});
+        }
+    });
+    return (
       <>
+          <AuthContext.Provider value={auth}>
           <Routes>
               <Route path="/" element={<Layout/>}>
                   <Route index element={<HomePage/>}/>
@@ -27,6 +38,7 @@ function App() {
                   <Route path={"*"} element={<NotFoundPage/>}/>
               </Route>
           </Routes>
+          </AuthContext.Provider>
       </>
   );
 }

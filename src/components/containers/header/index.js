@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {AuthContext} from "../../../authContext";
 
 const MainHeader = () => {
+    const {isAuth, user, logout} = useContext(AuthContext);
+    console.log("isAuth, user", isAuth, user);
     return(
         <>
             <header data-bs-theme="dark">
@@ -28,15 +32,28 @@ const MainHeader = () => {
                                     <a className="nav-link disabled" aria-disabled="true">Disabled</a>
                                 </li>
                             </ul>
-
-                            <ul className="navbar-nav ">
+                            {isAuth ?
+                                <ul className="navbar-nav ">
+                                <li className="nav-item">
+                                    <a className="nav-link" aria-current="page" href="/profile">{user.name}</a>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={"/logout"} onClick={(e) => {
+                                        e.preventDefault();
+                                        logout();
+                                    }}>Вихід</Link>
+                                </li>
+                            </ul>
+                                :
+                                <ul className="navbar-nav ">
                                 <li className="nav-item">
                                     <a className="nav-link" aria-current="page" href="#">Вхід</a>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={"/register"}>Реєстрація</Link>
                                 </li>
-                            </ul>
+                            </ul>}
+
 
                         </div>
                     </div>
